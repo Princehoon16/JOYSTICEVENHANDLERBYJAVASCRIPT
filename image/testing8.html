@@ -1,0 +1,491 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            position: relative;
+            height: 500px;
+            width: 500px;
+            border: 2px solid green;
+            margin-left: 300px;
+        }
+
+        #div2 {
+            border: 2px solid green;
+            border-radius: 50%;
+            height: 200px;
+            width: 200px;
+            margin-top: 150px;
+            margin-left: 150px;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+
+        }
+
+        #cancel {
+            display: none;
+            margin-left: 350px;
+            cursor: pointer;
+        }
+
+        #color {
+            margin-left: 300px;
+        }
+
+        #label1,
+        #First {
+            display: none;
+            margin-top: 50px;
+        }
+
+        #label1 {
+            margin-left: 300px;
+            margin-top: 500px;
+        }
+
+        #label2 {
+
+            margin-left: 10px;
+        }
+
+        #label2,
+        #Percentage {
+            display: none;
+        }
+
+        #h3 {
+            display: inline;
+            margin-left: 300px;
+            cursor: pointer;
+        }
+
+        span {
+            display: none;
+        }
+
+        image {
+            object-fit: cover;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <img src="./image/graph image.jpg" alt="image" height="500px" width="500px">
+        <div id="div2"><canvas id="pieChartCanvas" width="200" height="200"></canvas></div>
+    </div>
+
+    <br>
+    <br>
+    <input type="color" id="color" name="color" onmouseout="ClickMe()"><br>
+    <label for="First" id="label1">First : <input type="text" name="First" id="First" value="First"></label>
+    <label for="Percentage" id="label2">Percentage : </label><input type="text" name="Percentage" value=""
+        id="Percentage" placeholder="Percentage" onkeyup="DrawPortion()"><span>%</span><br>
+
+    <h3 align="center" style="color:grey;" id="h3" onclick="ShowField()">Add Item</h3>
+    <h3 align="center" id="cancel" onclick="RemoveField()">Cancel</h3>
+    <script>
+        function ClickMe() {
+            var color = document.getElementById('color').value;
+            document.getElementById("div2").style.backgroundColor = color;
+        }
+
+        function ShowField() {
+            document.getElementById('label1').style.display = 'inline';
+            document.getElementById('First').style.display = 'inline';
+            document.getElementById('label2').style.display = 'inline';
+            document.getElementById('Percentage').style.display = 'inline';
+            document.getElementById('cancel').style.display = 'inline';
+            document.querySelector('span').style.display = 'inline';
+
+            // Append the "Add Item" heading
+            const addItemHeading = document.createElement('h3');
+            addItemHeading.setAttribute('align', 'center');
+            addItemHeading.style.color = 'grey';
+            addItemHeading.textContent = 'Add Item';
+            document.body.appendChild(addItemHeading);
+        }
+
+        function RemoveField() {
+            document.getElementById('label1').style.display = 'none';
+            document.getElementById('First').style.display = 'none';
+            document.getElementById('label2').style.display = 'none';
+            document.getElementById('Percentage').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+            document.querySelector('span').style.display = 'none';
+
+            // Remove the "Add Item" heading if it exists
+            const addItemHeading = document.querySelector('#add-item-heading');
+            if (addItemHeading) {
+                addItemHeading.remove();
+            }
+        }
+
+        function DrawPortion() {
+            const canvas = document.getElementById('pieChartCanvas');
+            const ctx = canvas.getContext('2d');
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const fetch = parseFloat(document.getElementById('Percentage').value);
+            const angle = (fetch / 100) * 360;
+
+            // draw pie slice
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, angle * Math.PI / 180);
+            ctx.closePath();
+            ctx.fillStyle = 'orange';
+            ctx.fill();
+
+            //   draw border of pie slice
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, angle * Math.PI / 180);
+            ctx.closePath();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+    </script>
+</body>
+
+</html> -->
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            position: relative;
+            height: 500px;
+            width: 500px;
+            border: 2px solid green;
+            margin-left: 300px;
+        }
+
+        #div2 {
+            border: 2px solid green;
+            border-radius: 50%;
+            height: 200px;
+            width: 200px;
+            margin-top: 150px;
+            margin-left: 150px;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+
+        }
+
+        #cancel {
+            display: none;
+            margin-left: 350px;
+            cursor: pointer;
+        }
+
+        #color {
+            margin-left: 300px;
+        }
+
+        #label1,
+        #First {
+            display: none;
+            margin-top: 50px;
+        }
+
+        #label1 {
+            margin-left: 300px;
+            margin-top: 500px;
+        }
+
+        #label2 {
+
+            margin-left: 10px;
+        }
+
+        #label2,
+        #Percentage {
+            display: none;
+        }
+
+        #h3 {
+            display: inline;
+            margin-left: 300px;
+            cursor: pointer;
+        }
+
+        span {
+            display: none;
+        }
+
+        image {
+            object-fit: cover;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <img src="./image/graph image.jpg" alt="image" height="500px" width="500px">
+        <div id="div2"><canvas id="pieChartCanvas" width="200" height="200"></canvas></div>
+    </div>
+
+    <br>
+    <br>
+    <input type="color" id="color" name="color" onmouseout="ClickMe()"><br>
+    <label for="First" id="label1">First : <input type="text" name="First" id="First" value="First"></label>
+    <label for="Percentage" id="label2">Percentage : </label><input type="text" name="Percentage" value=""
+        id="Percentage" placeholder="Percentage" onkeyup="DrawPortion()"><span>%</span><br>
+
+    <h3 align="center" style="color:grey;" id="h3" onclick="ShowField()">Add Item</h3>
+    <h3 align="center" id="cancel" onclick="RemoveField()">Cancel</h3>
+
+    <script>
+        function ClickMe() {
+            var color = document.getElementById('color').value;
+            document.getElementById("div2").style.backgroundColor = color;
+        }
+
+        function ShowField() {
+            document.getElementById('label1').style.display = 'inline';
+            document.getElementById('First').style.display = 'inline';
+            document.getElementById('label2').style.display = 'inline';
+            document.getElementById('Percentage').style.display = 'inline';
+            document.getElementById('cancel').style.display = 'inline';
+            document.querySelector('span').style.display = 'inline';
+
+            // Create and append new inputs for "Add Item"
+            var newItemHtml = `
+                <label for="NewFirst">First : <input type="text" name="NewFirst" id="NewFirst" value="First"></label>
+                <label for="NewPercentage">Percentage : </label><input type="text" name="NewPercentage" value=""
+                    id="NewPercentage" placeholder="Percentage" onkeyup="DrawPortion()"><span>%</span><br>
+            `;
+            document.body.insertAdjacentHTML('beforeend', newItemHtml);
+        }
+
+        function RemoveField() {
+            document.getElementById('label1').style.display = 'none';
+            document.getElementById('First').style.display = 'none';
+            document.getElementById('label2').style.display = 'none';
+            document.getElementById('Percentage').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+            document.querySelector('span').style.display = 'none';
+
+            // Remove the newly added inputs for "Add Item"
+            var newInputs = document.querySelectorAll('[for="NewFirst"], [name="NewFirst"], [for="NewPercentage"], [name="NewPercentage"]');
+            newInputs.forEach(function(input) {
+                input.remove();
+            });
+        }
+
+        function DrawPortion() {
+            const canvas = document.getElementById('pieChartCanvas');
+            const ctx = canvas.getContext('2d');
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const fetch = parseFloat(document.getElementById('Percentage').value);
+
+            const angle = (fetch / 100) * 360;
+
+            // draw pie slice
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, angle * Math.PI / 180);
+            ctx.closePath();
+            ctx.fillStyle = 'orange';
+            ctx.fill();
+
+
+            //   draw border of pie slice
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, angle * Math.PI / 180);
+            ctx.closePath();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+    </script>
+</body>
+
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            position: relative;
+            height: 500px;
+            width: 500px;
+            border: 2px solid green;
+            margin-left: 300px;
+        }
+
+        #div2 {
+            border: 2px solid green;
+            border-radius: 50%;
+            height: 200px;
+            width: 200px;
+            margin-top: 150px;
+            margin-left: 150px;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+
+        }
+
+        #cancel {
+            display: none;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #color {
+            margin-left: 300px;
+        }
+
+        #label1,
+        #First {
+            display: none;
+            margin-top: 50px;
+        }
+
+        #label1 {
+            margin-left: 300px;
+            margin-top: 500px;
+        }
+
+        #label2 {
+
+            margin-left: 10px;
+        }
+
+        #label2,
+        #Percentage {
+            display: none;
+        }
+
+        #h3 {
+            display: inline;
+            margin-left: 300px;
+            cursor: pointer;
+        }
+
+        span {
+            display: none;
+        }
+
+        image {
+            object-fit: cover;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <img src="./image/graph image.jpg" alt="image" height="500px" width="500px">
+        <div id="div2"><canvas id="pieChartCanvas" width="200" height="200"></canvas></div>
+    </div>
+
+    <br>
+    <br>
+    <input type="color" id="color" name="color" onmouseout="ClickMe()"><br>
+    <label for="First" id="label1">First : <input type="text" name="First" id="First" value="First"></label>
+    <label for="Percentage" id="label2">Percentage : </label><input type="text" name="Percentage" value=""
+        id="Percentage" placeholder="Percentage" onkeyup="DrawPortion()"><span>%</span><br>
+
+    <h3 align="center" style="color:grey;" id="h3" onclick="ShowField()">Add Item</h3>
+    <button id="cancel" onclick="CancelItem()" style="display: none;">Cancel</button>
+
+    <script>
+        function ClickMe() {
+            var color = document.getElementById('color').value;
+            document.getElementById("div2").style.backgroundColor = color;
+        }
+
+        function ShowField() {
+            document.getElementById('label1').style.display = 'inline';
+            document.getElementById('First').style.display = 'inline';
+            document.getElementById('label2').style.display = 'inline';
+            document.getElementById('Percentage').style.display = 'inline';
+            document.getElementById('cancel').style.display = 'inline';
+            document.querySelector('span').style.display = 'inline';
+            document.getElementById('h3').style.display = 'none'; // Hide the "Add Item" heading
+        }
+
+        function CancelItem() {
+            document.getElementById('label1').style.display = 'none';
+            document.getElementById('First').style.display = 'none';
+            document.getElementById('label2').style.display = 'none';
+            document.getElementById('Percentage').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+            document.querySelector('span').style.display = 'none';
+            document.getElementById('h3').style.display = 'inline'; // Show the "Add Item" heading again
+        }
+
+        function DrawPortion() {
+            const canvas = document.getElementById('pieChartCanvas');
+            const ctx = canvas.getContext('2d');
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const fetch = parseFloat(document.getElementById('Percentage').value);
+
+            const angle = (fetch / 100) * 360;
+
+            // draw pie slice
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, angle * Math.PI / 180);
+            ctx.closePath();
+            ctx.fillStyle = 'orange';
+            ctx.fill();
+
+
+            //   draw border of pie slice
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, angle * Math.PI / 180);
+            ctx.closePath();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+    </script>
+</body>
+
+</html>

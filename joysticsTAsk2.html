@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            transition: background-color 0.5s ease;
+            
+        }
+
+        .dark-theme {
+            background-color: #000;
+            
+        }
+
+        .light-theme {
+            background-color: #fff;
+            
+        }
+
+        .invert-color {
+            filter: invert(100%);
+            
+        }
+
+        #div1 {
+            height: 200px;
+            width: 200px;
+            border: 2px solid green;
+            padding: 20px;
+            position: relative;
+           
+        }
+
+        #div2 {
+            height: 190px;
+            width: 190px;
+            border: 2px solid green;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #myCanvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor:none;
+
+        }
+        
+        #customCursor {
+            position: absolute;
+            display: none;
+            height: 50px;
+            width: 50px;
+        } 
+    </style>
+</head>
+
+<body class="light-theme">
+    <img src="dark_light_image.png" alt="image" height="30px" align="right" id="themeImage">
+    <div id="div1">
+        <div id="div2">
+            <canvas id="myCanvas" width="190" height="190"></canvas>
+        </div>
+    </div>
+    <br>
+
+    <label for="PosX" style="color:green;">Position X :</label><input type="text" name="PosX" id="PosX"><br><br>
+    <label for="PosY" style="color:green;">Position Y :</label><input type="text" name="PosY" id="PosY"><br><br>
+
+    <img id="customCursor" src="./image/curser_image-removebg-preview.png">
+
+  <!-- theme script-------------------------------------------- -->
+
+  <script src="script.js"></script>
+
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        var radius = 50;
+        var color = 'green';
+        var isDragging = false;
+        var offsetX, offsetY;
+        var posXInput = document.getElementById('PosX');
+        var posYInput = document.getElementById('PosY');
+        var customCursor = document.getElementById('customCursor');
+        var rect = canvas.getBoundingClientRect(); // Get the position of the canvas relative to the viewport
+    
+        // Initialize input values
+        posXInput.value = canvas.width / 2;
+        posYInput.value = canvas.height / 2;
+    
+        // Draw the circle at the center of the canvas
+        drawCircle(canvas.width / 2, canvas.height / 2);
+    
+        // Event listeners for mouse down, move, and up
+        canvas.addEventListener('mousedown', function (e) {
+            var mouseX = e.clientX - rect.left;
+            var mouseY = e.clientY - rect.top;
+            var distX = mouseX - (posXInput.value);
+            var distY = mouseY - (posYInput.value);
+            var distance = Math.sqrt(distX * distX + distY * distY);
+            if (distance <= radius) {
+                isDragging = true;
+                offsetX = mouseX - (posXInput.value);
+                offsetY = mouseY - (posYInput.value);
+            }
+        });
+    
+        canvas.addEventListener('mousemove', function (e) {
+            var mouseX = e.clientX - rect.left;
+            var mouseY = e.clientY - rect.top;
+            
+            var distX = mouseX - (posXInput.value);
+            var distY = mouseY - (posYInput.value);
+            var distance = Math.sqrt(distX * distX + distY * distY);
+            if (distance <= radius) {
+                customCursor.style.display = 'block';
+                customCursor.style.left = mouseX - radius + 'px'; // Adjust the position of the custom cursor 
+                customCursor.style.top = mouseY - radius + 'px';
+            } else {
+                customCursor.style.display = 'none';
+            }
+          
+    
+            if (isDragging) {
+                var newX = mouseX - offsetX;
+                var newY = mouseY - offsetY;
+                // Ensure the circle stays within the canvas
+                if (newX >= radius && newX <= canvas.width - radius && newY >= radius && newY <= canvas.height - radius) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawCircle(newX, newY);
+                    posXInput.value = newX;
+                    posYInput.value = newY;
+                }
+            }
+        });
+    
+        canvas.addEventListener('mouseup', function () {
+            isDragging = false;
+        });
+    
+        function drawCircle(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.closePath();
+        }
+    </script>
+</body>
+
+</html>
